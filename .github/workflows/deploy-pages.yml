@@ -24,14 +24,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Ler endereco do GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
       - name: Gerar site estático
         env:
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
-          VITE_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: npm run build
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
