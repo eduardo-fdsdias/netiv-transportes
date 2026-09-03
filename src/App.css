@@ -34,3 +34,6 @@
 @media(max-width:650px){.hero-media img{object-position:center 63%}}
 
 .gallery-grid figure:after,.gallery-grid figcaption{display:none}
+.legal-page a.button-dark,.legal-page a.button-dark:visited{color:#fff;background:var(--navy)}
+.legal-page a.button-dark:hover{color:#fff;background:#102e47}
+.legal-page a.button-dark:focus-visible{outline:3px solid #bd8300;outline-offset:4px}
