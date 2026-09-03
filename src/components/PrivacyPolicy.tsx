@@ -19,7 +19,7 @@ export function PrivacyPolicy() {
       <p>As informações são usadas para responder solicitações, elaborar orçamento, confirmar disponibilidade, prestar o serviço, cumprir obrigações legais e manter a segurança do atendimento.</p>
 
       <h2>4. Serviços externos</h2>
-      <p>O site oferece links para WhatsApp e Instagram e incorpora um mapa do Google. Ao utilizar esses recursos, aplicam-se também as políticas de privacidade das respectivas empresas. Não vendemos dados pessoais.</p>
+      <p>O site oferece links para WhatsApp e Instagram, incorpora um mapa do Google e utiliza a tag do Google Ads para medir visitas e interações com nossos anúncios. Esses serviços podem usar cookies ou identificadores semelhantes conforme as políticas do Google e das respectivas empresas. Não vendemos dados pessoais.</p>
 
       <h2>5. Compartilhamento e retenção</h2>
       <p>Informações poderão ser compartilhadas somente quando necessárias à execução do serviço, ao cumprimento de obrigação legal ou ao exercício regular de direitos. Os dados são mantidos pelo período necessário para essas finalidades.</p>
