@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Imagens originais e arquivos não usados não devem ser publicados no repositório
+src/assets/*.jpg
+src/assets/atendimento-picape.jpg
+src/assets/guincho-lateral-completo.webp
+src/assets/guincho-lateral.webp
+src/assets/hero-atendimento.webp
+src/assets/hero.png
+src/assets/react.svg
+src/assets/vite.svg
+public/guincho.jpg
+public/icons.svg
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

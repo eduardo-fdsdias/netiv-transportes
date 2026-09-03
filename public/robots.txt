@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guincho-netiv.lovable.app/sitemap.xml

@@ -1,0 +1,9 @@
+:root { font-family:Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#172235; background:#fff; font-synthesis:none; text-rendering:optimizeLegibility; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:104px; }
+body { margin:0; min-width:320px; background:#fff; }
+button,a { font:inherit; }
+img { display:block; max-width:100%; }
+#root { min-height:100vh; overflow:hidden; }
+::selection { background:#f6b91a; color:#071827; }
+@media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important} }
