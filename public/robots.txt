@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://guincho-netiv.lovable.app/sitemap.xml
+Sitemap: https://netivtransportes.com.br/sitemap.xml

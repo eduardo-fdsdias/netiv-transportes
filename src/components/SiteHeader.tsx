@@ -9,14 +9,17 @@ import {
   WHATSAPP_ORCAMENTO,
 } from "../data/site"
 
-export function SiteHeader() {
+export function SiteHeader({ whatsapp = WHATSAPP_ORCAMENTO }: { whatsapp?: string }) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : ""
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); document.querySelector<HTMLButtonElement>(".menu-button")?.focus() }
+    }
+    document.addEventListener("keydown", closeOnEscape)
 
     return () => {
-      document.body.style.overflow = ""
+      document.removeEventListener("keydown", closeOnEscape)
     }
   }, [open])
 
@@ -62,7 +65,7 @@ export function SiteHeader() {
 
       <div className="header-container navbar">
         <a
-          href="#inicio"
+          href="/"
           className="brand"
           aria-label="Netiv Transportes - início"
         >
@@ -80,7 +83,7 @@ export function SiteHeader() {
 
         <div className="header-actions">
           <a
-            href={WHATSAPP_ORCAMENTO}
+            href={whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="header-whatsapp"
@@ -94,14 +97,15 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
           >
             {open ? <X size={23} /> : <Menu size={23} />}
           </button>
         </div>
       </div>
 
-      {open && (
-        <nav className="mobile-nav" aria-label="Menu móvel">
+      {(
+        <nav id="mobile-menu" hidden={!open} className="mobile-nav" aria-label="Menu móvel">
           <div className="header-container mobile-nav-content">
             {NAV_LINKS.map((link) => (
               <a
