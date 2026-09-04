@@ -82,3 +82,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
  .footer-bottom{overflow-wrap:anywhere}.topbar-links a{min-height:44px}
 }
 @media(max-width:360px){.hero h1{font-size:30px}.hero-actions .button{font-size:12px}.trust-list{gap:8px}}
+
+.selected-region-link{display:inline-flex;align-items:center;min-height:44px;color:#fff;font-size:13px;text-underline-offset:4px}
