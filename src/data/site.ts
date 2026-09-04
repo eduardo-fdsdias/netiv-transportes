@@ -13,7 +13,7 @@ export const BASE_CIDADE =
   "São Bernardo do Campo e ABC Paulista"
 
 export const ADDRESS_DISPLAY =
-  "São Bernardo do Campo - SP"
+  "São Bernardo do Campo"
 
 export const CNPJ = "64.751.310/0001-20"
 
