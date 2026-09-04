@@ -26,8 +26,8 @@ const services = [
 ]
 
 const cities = ["São Bernardo do Campo", "Santo André", "São Caetano do Sul", "Diadema", "Mauá", "Ribeirão Pires", "Rio Grande da Serra"]
-const coastAreas = ["Serra de Santos", "Praia Grande", "Cubatão", "Guarujá"]
-const extraCities = ["Poá", "Suzano", "Santos", "São Vicente"]
+const coastAreas = ["Santos", "Praia Grande", "Guarujá", "São Vicente", "Cubatão", "Serra de Santos"]
+const extraCities = ["Poá", "Suzano"]
 const faqs = [
   ["Quanto custa um serviço de guincho?", "O valor depende da localização do veículo, destino, distância e tipo de veículo. Envie esses dados pelo WhatsApp para receber um orçamento claro antes da saída do guincho."],
   ["Quanto tempo o guincho demora para chegar?", "O prazo varia conforme trânsito, distância e disponibilidade no momento. No primeiro contato informamos a previsão possível para sua localização, sem prometer um horário que não possa ser cumprido."],
@@ -66,10 +66,11 @@ function App({ pathname = "/" }: { pathname?: string }) {
   const [selectedCity, setSelectedCity] = useState("")
   const canPersonalize = !region || region.slug === "guincho-perto-de-mim"
   const city = selectedCity || region?.city || "ABC Paulista"
-  const requestLink = (service = "guincho") => waLink(`Olá, preciso consultar ${service} ${city === "Praia Grande" ? "para" : "em"} ${city}.\nVeículo (marca/modelo): ____\nLocal de retirada: ____\nDestino: ____`)
+  const isCoast = coastAreas.includes(city)
+  const requestLink = (service = "guincho") => waLink(`Olá, preciso consultar ${service} ${isCoast ? "para" : "em"} ${city}.${isCoast ? " Rota entre o ABC e o litoral, sob consulta de disponibilidade." : ""}\nVeículo (marca/modelo): ____\nLocal de retirada: ____\nDestino: ____`)
   const whatsapp = requestLink()
   const headline = canPersonalize
-    ? `Atendimento de guincho 24h ${city === "ABC Paulista" ? "no ABC Paulista" : `em ${city}`}`
+    ? isCoast ? `Guincho para ${city}` : `Atendimento de guincho 24h ${city === "ABC Paulista" ? "no ABC Paulista" : `em ${city}`}`
     : region.title
   const pageFaqs = region ? [[region.question, region.answer], ...faqs] : faqs
   const faqSchema = makeFaqSchema(pageFaqs)
@@ -86,11 +87,11 @@ function App({ pathname = "/" }: { pathname?: string }) {
           <div className="hero-copy">
             <span className="eyebrow"><i /> Atendimento 24 horas • Todos os dias</span>
             <h1>{headline}</h1>
-            <p className="hero-lead">{region?.description || "Carros, motos e utilitários leves. Atendimento direto e orçamento antes do serviço."}</p>
+            <p className="hero-lead">{canPersonalize && isCoast ? `Transporte de veículos entre o ABC Paulista e ${city}, sob consulta de rota e disponibilidade. Informe a origem e o destino.` : region?.description || "Carros, motos e utilitários leves. Atendimento direto e orçamento antes do serviço."}</p>
 
-            <div className="hero-actions"><a className="button button-primary" href={whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /> Pedir guincho</a><a className="button button-outline" href={PHONE_TEL}>Ligar agora</a></div>
+            <div className="hero-actions"><a className="button button-primary" href={whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /> {isCoast ? "Consultar rota" : "Pedir guincho"}</a><a className="button button-outline" href={PHONE_TEL}>Ligar agora</a></div>
             <ul className="trust-list"><li><Clock size={15}/> Disponível 24h</li><li><ShieldCheck size={15}/> Atendimento direto</li><li><MapPin size={15}/> Base em São Bernardo</li></ul>
-            {canPersonalize && <div className="city-picker"><label htmlFor="cidade">Onde está o veículo?</label><select id="cidade" value={selectedCity} onChange={event => setSelectedCity(event.target.value)}><option value="">ABC Paulista — selecionar cidade</option>{cities.map(name => <option key={name}>{name}</option>)}</select><small role="status">{selectedCity ? `Solicitação para ${selectedCity}. Confirme o endereço no WhatsApp.` : "Informe a cidade se desejar. Confirme disponibilidade pelo WhatsApp."}</small></div>}
+            {canPersonalize && <div className="city-picker"><label htmlFor="cidade">Qual região você precisa atender?</label><select id="cidade" aria-describedby="cidade-ajuda" value={selectedCity} onChange={event => setSelectedCity(event.target.value)}><option value="">ABC Paulista</option><optgroup label="Cidades do ABC">{cities.map(name => <option key={name}>{name}</option>)}</optgroup><optgroup label="Litoral — rotas sob consulta">{coastAreas.map(name => <option key={name}>{name}</option>)}</optgroup></select><small id="cidade-ajuda" role="status">{isCoast ? `Rota para ${city} sob consulta. Base em São Bernardo; confirme origem e destino no WhatsApp.` : selectedCity ? `Solicitação para ${selectedCity}. Confirme o endereço no WhatsApp.` : "Atendimento no ABC e rotas para o litoral sob consulta."}</small></div>}
           </div>
           <div className="hero-media"><img src={heroGuincho} width="760" height="1351" fetchPriority="high" alt="Guincho plataforma da Netiv transportando van sob céu azul no ABC Paulista" /><div className="hero-card"><strong>Atendimento real Netiv</strong><span>Guincho próprio • ABC Paulista</span></div></div>
         </div>
