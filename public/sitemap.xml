@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://guincho-netiv.lovable.app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://guincho-netiv.lovable.app/politica-de-privacidade</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+  <url><loc>https://netivtransportes.com.br/</loc></url>
+  <url><loc>https://netivtransportes.com.br/politica-de-privacidade/</loc></url>
+  <url><loc>https://netivtransportes.com.br/guincho-24h-sao-bernardo-do-campo/</loc></url>
+  <url><loc>https://netivtransportes.com.br/guincho-24h-abc-paulista/</loc></url>
+  <url><loc>https://netivtransportes.com.br/guincho-24h-santo-andre/</loc></url>
+  <url><loc>https://netivtransportes.com.br/guincho-perto-de-mim/</loc></url>
+  <url><loc>https://netivtransportes.com.br/guincho-para-praia-grande/</loc></url>
 </urlset>

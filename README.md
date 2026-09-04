@@ -1,75 +1,32 @@
-# React + TypeScript + Vite
+# Netiv Transportes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site existente em React + TypeScript + Vite, com HTML pré-renderizado para publicação estática.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Use Node.js compatível com Vite 8 e pnpm 11.
 
-## React Compiler
+    pnpm install --frozen-lockfile
+    pnpm dev
+    pnpm build
+    pnpm lint
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O build gera `dist/`: publique o conteúdo dessa pasta na raiz do domínio. Cada rota possui seu próprio diretório e index.html; preserve essa estrutura na hospedagem. Caminhos inexistentes devem retornar HTTP 404, sem redirecionar indiscriminadamente para a home.
 
-## Expanding the ESLint configuration
+## Conteúdo e configuração
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/data/regions.json`: URLs, textos e perguntas locais. Não renomeie slugs publicados sem redirecionamento permanente.
+- `src/data/site.ts`: contatos, endereço, navegação e domínio canônico. `VITE_SITE_URL` permite substituir o domínio no build.
+- `src/App.tsx`: home, páginas locais, WhatsApp e seletor de cidade.
+- `scripts/prerender.mjs`: HTML de cada página, metadados, sitemap e robots.
+- `src/App.css`: estilos originais e ajustes de contraste, leitura e mobile.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+A escolha de cidade é opcional, não persiste dados nem acessa GPS ou serviços de IP. Personaliza home e “guincho perto de mim”; páginas fixas mantêm seus títulos. Endereço exato e disponibilidade são confirmados no WhatsApp.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+As fotos, CNPJ, endereço e condições comerciais foram preservados do projeto recebido. Avaliações só aparecem se cadastradas como reais e autorizadas.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Publicação e descoberta
 
-```
+Domínio padrão: https://netivtransportes.com.br. A versão entregue ainda não foi publicada. Após publicar, envie /sitemap.xml ao Google Search Console. HTML indexável não garante inclusão nem posição no Google.
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+A implementação usa pré-renderização, links HTML e canonical por página, conforme https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics . Revisão de contraste baseada em https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html .

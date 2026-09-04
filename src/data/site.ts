@@ -6,7 +6,7 @@ export const WHATSAPP_NUMBER = "5511943786869"
 
 export const WHATSAPP_ORCAMENTO =
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    "Olá, preciso de um guincho em "
+    "Olá, preciso de um guincho no ABC Paulista. Veículo: ____; Local de retirada: ____; Destino: ____."
   )}`
 
 export const BASE_CIDADE =
@@ -29,7 +29,7 @@ export const INSTAGRAM_HANDLE =
 export const BASE_PATH = import.meta.env.BASE_URL
 
 export const SITE_URL =
-  (import.meta.env.VITE_SITE_URL || "https://guincho-netiv.lovable.app").replace(/\/$/, "")
+  (import.meta.env.VITE_SITE_URL || "https://netivtransportes.com.br").replace(/\/$/, "")
 
 export const NAV_LINKS = [
   {
@@ -41,15 +41,7 @@ export const NAV_LINKS = [
     href: "#servicos",
   },
   {
-    label: "Como funciona",
-    href: "#como-funciona",
-  },
-  {
-    label: "Atendimentos",
-    href: "#atendimentos",
-  },
-  {
-    label: "Região",
+    label: "Regiões atendidas",
     href: "#areas-atendidas",
   },
   {

@@ -37,3 +37,48 @@
 .legal-page a.button-dark,.legal-page a.button-dark:visited{color:#fff;background:var(--navy)}
 .legal-page a.button-dark:hover{color:#fff;background:#102e47}
 .legal-page a.button-dark:focus-visible{outline:3px solid #bd8300;outline-offset:4px}
+/* Refinements preserve the original navy, gold accents and photography. */
+:root{--green:#08783e;--muted:#526174}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #1671b8;outline-offset:4px}
+.hero :focus-visible,.site-header :focus-visible,.areas-section :focus-visible,.site-footer :focus-visible{outline-color:#f6b91a}
+[hidden]{display:none!important}
+.skip-link{position:fixed;left:16px;top:12px;z-index:100;padding:14px;background:#fff;color:#071827;transform:translateY(-160%)}
+.skip-link:focus{transform:none}
+.header-whatsapp:hover,.button-primary:hover{background:#066132}
+.section-kicker{color:#875d00}.hero .section-kicker,.areas-section .section-kicker{color:var(--gold)}
+.service-icon{color:#875d00}.legal-kicker,.legal-brand span{color:#875d00}
+.button,.header-whatsapp{font-size:13px;text-transform:none}
+.hero-actions{flex-wrap:wrap}.hero-actions .button{flex:1;white-space:nowrap}
+.hero h1{font-size:clamp(36px,4.1vw,56px);letter-spacing:-1.8px;line-height:1.1}
+.hero-lead{font-weight:400;font-size:17px}
+.trust-list{font-size:12px;gap:12px}
+.city-picker{display:grid;gap:8px;margin-top:24px;max-width:410px}
+.city-picker label{font-weight:600;font-size:14px}
+.city-picker select{width:100%;min-height:44px;padding:10px;border:1px solid #9aabba;border-radius:6px;color:#071827;background:#fff;font:inherit;font-size:14px}
+.city-picker small{color:#b9c5cf;font-size:12px;line-height:1.5}
+.regional-intro{padding:40px 0;background:#f4f7fa}.regional-intro .shell{max-width:860px}
+.regional-intro h2{color:var(--navy);font-size:28px}.regional-intro p{color:var(--muted);font-size:16px;line-height:1.75}
+.breadcrumbs{font-size:13px;line-height:1.7}.breadcrumbs a{color:#174e7a}
+.region-links{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 28px}.region-links a{padding:12px 16px;border:1px solid #728596;border-radius:8px;color:#fff;line-height:1.5;font-size:14px;text-underline-offset:4px}
+.local-grid h3{font-size:18px;color:#fff}.local-grid p{font-size:14px}
+.service-card p,.faq-visible p,.coast-grid p,.coast-grid small{font-size:14px}
+.service-card a,.local-grid a,.coast-grid a{min-height:44px;display:inline-flex;align-items:center;font-size:13px}
+.proof-grid span{font-size:12px;line-height:1.6}.footer-grid a{font-size:13px;line-height:1.6;padding-block:5px}
+.faq-visible{display:block;max-width:860px;margin:auto}.faq-visible details{padding:18px 22px;margin-bottom:12px;border:1px solid #b6c1cd;border-radius:8px;background:#fff}
+.faq-visible summary{cursor:pointer;color:var(--navy);font-weight:700;min-height:28px;line-height:1.6}.faq-visible p{padding-top:12px}
+.cta-section{background:#eaf0f5}.cta-actions .button-primary{background:var(--green)}
+.menu-button{min-width:44px;min-height:44px}.mobile-nav{max-height:65dvh;overflow-y:auto}
+@media(max-width:650px){
+ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+ html{scroll-padding-top:80px;scroll-padding-bottom:100px}
+ .hero{padding:24px 0 40px}.hero h1{font-size:34px;margin-top:16px;line-height:1.1}
+ .hero-lead{font-size:16px}.eyebrow{font-size:10px;letter-spacing:.6px}
+ .hero-actions{grid-template-columns:1.25fr 1fr}.hero-actions .button{font-size:13px;min-height:50px;padding:8px}
+ .trust-list{font-size:11px;gap:9px}.trust-list li:nth-child(2){display:list-item}
+ .city-picker{margin-top:18px}.hero-media img{height:260px}
+ .mobile-sticky{height:calc(72px + env(safe-area-inset-bottom));padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:8px}
+ .mobile-sticky a{font-size:14px;text-transform:none;min-height:48px}.mobile-sticky a:last-child{margin-left:0}
+ .section{padding:52px 0}.regional-intro{padding:28px 0}.region-links{flex-direction:column}
+ .footer-bottom{overflow-wrap:anywhere}.topbar-links a{min-height:44px}
+}
+@media(max-width:360px){.hero h1{font-size:30px}.hero-actions .button{font-size:12px}.trust-list{gap:8px}}

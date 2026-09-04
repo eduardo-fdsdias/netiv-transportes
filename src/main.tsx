@@ -16,7 +16,7 @@ if (isPrivacyPage) {
 const root = document.getElementById('root')!
 const application = (
   <StrictMode>
-    {isPrivacyPage ? <PrivacyPolicy /> : <App />}
+    {isPrivacyPage ? <PrivacyPolicy /> : <App pathname={currentPath} />}
   </StrictMode>
 )
 

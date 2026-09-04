@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "guincho-24h-sao-bernardo-do-campo",
+    "city": "São Bernardo do Campo",
+    "title": "Guincho 24h em São Bernardo do Campo",
+    "description": "Guincho com base em São Bernardo do Campo para carros, motos e utilitários leves. Atendimento direto e orçamento antes do transporte.",
+    "heading": "Saída da nossa base em São Bernardo",
+    "paragraphs": ["A base da Netiv fica no Parque Terra Nova II, na Rua José D’Ângelo, 574. Atendemos remoções em São Bernardo do Campo conforme o ponto de retirada, as condições de acesso e a disponibilidade do guincho.", "Para uma pane no bairro ou transporte até uma oficina, envie a localização exata, o modelo do veículo e o destino. Avise se o carro está em garagem, com rodas travadas ou sem condições de manobra; isso ajuda a confirmar o embarque na plataforma."],
+    "question": "O guincho sai de São Bernardo do Campo?",
+    "answer": "Nossa base operacional fica no Parque Terra Nova II, em São Bernardo. A posição do guincho varia durante os atendimentos; a previsão de chegada é confirmada no contato."
+  },
+  {
+    "slug": "guincho-24h-abc-paulista",
+    "city": "ABC Paulista",
+    "title": "Guincho 24h no ABC Paulista",
+    "description": "Guincho no ABC Paulista com base em São Bernardo. Consulte cobertura para sua localização, transporte entre cidades e orçamento antes do serviço.",
+    "heading": "Transporte entre cidades do ABC",
+    "paragraphs": ["Precisa retirar o veículo em uma cidade e entregar em outra? Informe os dois endereços. A Netiv atende o ABC a partir de São Bernardo do Campo, em um raio local aproximado de 18 km do CEP 09820-670; a cobertura depende do endereço, não apenas do nome da cidade.", "São Bernardo, Santo André, São Caetano, Diadema, Mauá, Ribeirão Pires e Rio Grande da Serra podem ter percursos diferentes em relação à base. Confirme o ponto de retirada pelo WhatsApp para receber disponibilidade, valor e previsão de deslocamento."],
+    "question": "O raio de atendimento cobre todo o ABC?",
+    "answer": "O raio aproximado de 18 km não abrange necessariamente todos os bairros de cada cidade. Envie o endereço de retirada e o destino; trajetos além da área local são avaliados sob consulta."
+  },
+  {
+    "slug": "guincho-24h-santo-andre",
+    "city": "Santo André",
+    "title": "Guincho 24h em Santo André",
+    "description": "Precisa de guincho em Santo André? Consulte retirada de carros, motos e veículos leves com deslocamento da Netiv a partir de São Bernardo.",
+    "heading": "Retirada em Santo André, destino combinado",
+    "paragraphs": ["A Netiv atende solicitações em Santo André com base operacional em São Bernardo do Campo. O deslocamento depende do endereço e da disponibilidade no momento: confirme a previsão antes de contratar.", "Se o destino for uma oficina, tenha o endereço e confirme se ela pode receber o veículo no horário combinado. Para retiradas em estacionamentos ou garagens, informe altura livre, rampas e condições de acesso, além do modelo e do estado do veículo."],
+    "question": "Vocês possuem base em Santo André?",
+    "answer": "Nossa base fica em São Bernardo do Campo. O atendimento em Santo André é confirmado conforme a localização do veículo, o deslocamento e a disponibilidade da plataforma."
+  },
+  {
+    "slug": "guincho-perto-de-mim",
+    "city": "ABC Paulista",
+    "title": "Guincho perto de mim: atendimento no ABC",
+    "description": "Procura guincho perto de você no ABC? Informe sua cidade e localização exata para consultar disponibilidade, orçamento e previsão de chegada.",
+    "heading": "Como consultar um guincho para sua localização",
+    "paragraphs": ["A cidade ajuda a iniciar o atendimento, mas não indica a posição do caminhão. Selecione onde o veículo está e envie o ponto exato pelo WhatsApp para consultar a disponibilidade real da Netiv.", "Você pode compartilhar a localização pelo próprio WhatsApp ou informar endereço e ponto de referência. Em rodovias, acrescente o nome da via, quilômetro e sentido. A previsão de chegada considera trânsito e atendimentos em andamento; não é calculada apenas pela cidade escolhida."],
+    "question": "Escolher minha cidade garante um guincho próximo?",
+    "answer": "Não. A escolha personaliza sua solicitação, sem rastrear você ou o guincho. Nossa equipe confirma a possibilidade de atendimento e a previsão após receber sua localização exata."
+  },
+  {
+    "slug": "guincho-para-praia-grande",
+    "city": "Praia Grande",
+    "title": "Guincho para Praia Grande",
+    "description": "Transporte de veículos entre o ABC Paulista e Praia Grande sob consulta de rota e disponibilidade. Informe origem, destino e modelo para orçamento.",
+    "heading": "Rota ABC–Praia Grande sob consulta",
+    "paragraphs": ["Transporte de carros, motos e utilitários leves entre o ABC Paulista e Praia Grande, mediante consulta. A base da Netiv está em São Bernardo do Campo; não anunciamos base local nem chegada imediata em Praia Grande.", "Para planejar o trajeto, informe endereço de origem e destino, modelo do veículo e data desejada. Esclareça se precisa levar o veículo ao litoral ou trazê-lo ao ABC. O orçamento e a previsão dependem do percurso e da disponibilidade para a rota."],
+    "question": "Posso solicitar retirada em Praia Grande para o ABC?",
+    "answer": "Sim, você pode consultar essa rota. A realização depende da disponibilidade e das condições do transporte; valor e previsão são combinados antes da confirmação."
+  }
+]
