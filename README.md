@@ -1,32 +1,86 @@
-# Netiv Transportes
+# Netiv Transportes — Guincho 24h
 
-Site existente em React + TypeScript + Vite, com HTML pré-renderizado para publicação estática.
+Site oficial da **Netiv Transportes**, serviço de guincho plataforma 24 horas para carros, motos, utilitários e veículos leves em São Bernardo do Campo, ABC Paulista e rotas para o litoral sob consulta.
 
-## Desenvolvimento
+**Site:** [netivtransportes.com.br](https://netivtransportes.com.br/)  
+**WhatsApp e telefone:** [(11) 94378-6869](https://wa.me/5511943786869)  
+**Instagram:** [@netiv.transportes](https://www.instagram.com/netiv.transportes/)  
+**CNPJ:** 64.751.310/0001-20
 
-Use Node.js compatível com Vite 8 e pnpm 11.
+## Sobre o projeto
 
-    pnpm install --frozen-lockfile
-    pnpm dev
-    pnpm build
-    pnpm lint
+A página foi construída para carregar rapidamente em dispositivos móveis, facilitar o contato imediato por WhatsApp ou telefone e melhorar a presença da empresa nas buscas locais.
 
-O build gera `dist/`: publique o conteúdo dessa pasta na raiz do domínio. Cada rota possui seu próprio diretório e index.html; preserve essa estrutura na hospedagem. Caminhos inexistentes devem retornar HTTP 404, sem redirecionar indiscriminadamente para a home.
+Principais recursos:
 
-## Conteúdo e configuração
+- atendimento e contato disponíveis durante toda a navegação;
+- páginas locais pré-renderizadas e indexáveis;
+- metadados, sitemap, canonical e dados estruturados para SEO;
+- imagens reais otimizadas em WebP e com placas desfocadas;
+- integração com Google Ads por meio da tag `AW-18419198979`;
+- política de privacidade e boas práticas de segurança;
+- publicação automática no GitHub Pages com domínio próprio e HTTPS.
 
-- `src/data/regions.json`: URLs, textos e perguntas locais. Não renomeie slugs publicados sem redirecionamento permanente.
-- `src/data/site.ts`: contatos, endereço, navegação e domínio canônico. `VITE_SITE_URL` permite substituir o domínio no build.
-- `src/App.tsx`: home, páginas locais, WhatsApp e seletor de cidade.
-- `scripts/prerender.mjs`: HTML de cada página, metadados, sitemap e robots.
-- `src/App.css`: estilos originais e ajustes de contraste, leitura e mobile.
+## Tecnologias
 
-A escolha de cidade é opcional, não persiste dados nem acessa GPS ou serviços de IP. Personaliza home e “guincho perto de mim”; páginas fixas mantêm seus títulos. Endereço exato e disponibilidade são confirmados no WhatsApp.
+- React 19
+- TypeScript 6
+- Vite 8
+- CSS responsivo e mobile-first
+- renderização no servidor para pré-geração de HTML
+- GitHub Actions e GitHub Pages
 
-As fotos, CNPJ, endereço e condições comerciais foram preservados do projeto recebido. Avaliações só aparecem se cadastradas como reais e autorizadas.
+## Estrutura de arquivos
 
-## Publicação e descoberta
+| Caminho | Finalidade |
+| --- | --- |
+| `.github/workflows/` | Automação de validação, build e publicação no GitHub Pages. |
+| `public/` | Arquivos públicos, como favicon, `robots.txt` e sitemap. |
+| `scripts/prerender.mjs` | Gera o HTML estático das páginas e os arquivos técnicos de SEO. |
+| `src/assets/` | Fotografias reais e otimizadas usadas no site. |
+| `src/components/` | Componentes reutilizáveis, incluindo cabeçalho, depoimentos e privacidade. |
+| `src/data/regions.json` | Conteúdo e URLs das páginas regionais. |
+| `src/data/site.ts` | Dados centrais do negócio, contatos, navegação e domínio canônico. |
+| `src/App.tsx` | Estrutura e conteúdo principal do site. |
+| `src/App.css` | Layout, identidade visual e ajustes responsivos. |
+| `src/entry-server.tsx` | Entrada usada na pré-renderização das páginas. |
+| `src/main.tsx` | Inicialização do aplicativo no navegador. |
+| `index.html` | Documento-base, metadados globais e Google tag. |
+| `vite.config.ts` | Configuração de desenvolvimento e build do Vite. |
 
-Domínio padrão: https://netivtransportes.com.br. A versão entregue ainda não foi publicada. Após publicar, envie /sitemap.xml ao Google Search Console. HTML indexável não garante inclusão nem posição no Google.
+## Executar localmente
 
-A implementação usa pré-renderização, links HTML e canonical por página, conforme https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics . Revisão de contraste baseada em https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html .
+É necessário ter uma versão do Node.js compatível com o Vite 8.
+
+```bash
+npm install
+npm run dev
+```
+
+O ambiente de desenvolvimento ficará disponível em `http://localhost:5173`.
+
+## Validação e build
+
+```bash
+npm run lint
+npm run build
+npm run preview
+```
+
+O build gera a pasta `dist/` com a página inicial, a política de privacidade e as páginas regionais já pré-renderizadas. A estrutura das rotas deve ser preservada na hospedagem.
+
+## Publicação
+
+Todo envio para a branch `main` inicia o fluxo de publicação configurado em `.github/workflows/deploy-pages.yml`. O domínio oficial é `https://netivtransportes.com.br/`.
+
+## Manutenção do conteúdo
+
+- Atualize contatos e informações gerais em `src/data/site.ts`.
+- Atualize cidades, URLs e textos locais em `src/data/regions.json`.
+- Não altere URLs já publicadas sem criar um redirecionamento permanente.
+- Publique depoimentos somente quando forem reais e autorizados.
+- Não exponha endereço residencial, documentos, chaves ou credenciais no repositório.
+
+## Licença e uso
+
+Código e conteúdo desenvolvidos para uso da Netiv Transportes. Fotografias, identidade visual e textos comerciais não estão liberados para reutilização por terceiros.
