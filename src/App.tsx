@@ -1,5 +1,5 @@
 import "./App.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import regions from "./data/regions.json"
 import { Bike, CalendarClock, Car, Clock, MapPin, ShieldCheck, Truck, Wrench, Zap } from "lucide-react"
 import heroGuincho from "./assets/atendimento-utilitario.webp"
@@ -63,6 +63,13 @@ function WhatsAppIcon() {
 }
 
 const waLink = (message: string) => `https://wa.me/5511943786869?text=${encodeURIComponent(message)}`
+const GOOGLE_ADS_CONTACT_CONVERSION = "AW-18419198979/-qxLCPyE1uwcEIPY-s5E"
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
+}
 
 function App({ pathname = "/" }: { pathname?: string }) {
   const region = regions.find(item => `/${item.slug}` === pathname.replace(/\/$/, ""))
@@ -77,6 +84,24 @@ function App({ pathname = "/" }: { pathname?: string }) {
     : region.title
   const pageFaqs = region ? [[region.question, region.answer], ...faqs] : faqs
   const faqSchema = makeFaqSchema(pageFaqs)
+
+  useEffect(() => {
+    const trackWhatsAppClick = (event: MouseEvent) => {
+      if (!(event.target instanceof Element)) return
+
+      const link = event.target.closest<HTMLAnchorElement>('a[href*="wa.me/5511943786869"]')
+      if (!link || typeof window.gtag !== "function") return
+
+      window.gtag("event", "conversion", {
+        send_to: GOOGLE_ADS_CONTACT_CONVERSION,
+        event_callback: () => undefined,
+        event_timeout: 2000,
+      })
+    }
+
+    document.addEventListener("click", trackWhatsAppClick, { capture: true })
+    return () => document.removeEventListener("click", trackWhatsAppClick, { capture: true })
+  }, [])
 
   return <>
     <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
