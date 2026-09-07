@@ -63,7 +63,7 @@ function WhatsAppIcon() {
 }
 
 const waLink = (message: string) => `https://wa.me/5511943786869?text=${encodeURIComponent(message)}`
-const GOOGLE_ADS_CONTACT_CONVERSION = "AW-18419198979/-qxLCPyE1uwcEIPY-s5E"
+const GOOGLE_ADS_CONTACT_CONVERSION = "AW-18419198979/XYYjCJWx5PAcEIPY-s5E"
 
 declare global {
   interface Window {
