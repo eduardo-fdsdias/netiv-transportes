@@ -9,6 +9,7 @@ import guinchoFrente from "./assets/guincho-frente-placa-borrada.webp"
 import guinchoLateral from "./assets/guincho-lateral-placa-borrada.webp"
 import { SiteHeader } from "./components/SiteHeader"
 import { Testimonials } from "./components/Testimonials"
+import { readTrafficAttribution, type TrafficAttribution } from "./lib/attribution"
 import {
   ADDRESS_DISPLAY, CNPJ, INSTAGRAM_HANDLE, INSTAGRAM_URL, MAP_EMBED_URL,
   BASE_PATH, PHONE_DISPLAY, PHONE_TEL, SITE_URL,
@@ -62,7 +63,8 @@ function WhatsAppIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1C18.7 23.7 24 18.4 24 11.9c0-3.2-1.2-6.2-3.5-8.4ZM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.9 1 1-3.8-.2-.4a9.8 9.8 0 1 1 8.5 4.8Zm5.4-7.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.3 3.5 1.5 3.7.2.3 2.6 4 6.3 5.6 2.3 1 3.2 1.1 4.4.9.7-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
 }
 
-const waLink = (message: string) => `https://wa.me/5511943786869?text=${encodeURIComponent(message)}`
+const waLink = (message: string, attribution: TrafficAttribution) =>
+  `https://wa.me/5511943786869?text=${encodeURIComponent(`${message}\n\nRef.: ${attribution.reference}`)}`
 const qualificationFields = [
   "Veículo (marca/modelo): ____",
   "Local de retirada: ____",
@@ -81,10 +83,11 @@ declare global {
 function App({ pathname = "/" }: { pathname?: string }) {
   const region = regions.find(item => `/${item.slug}` === pathname.replace(/\/$/, ""))
   const [selectedCity, setSelectedCity] = useState("")
+  const [attribution, setAttribution] = useState<TrafficAttribution>({ reference: "SITE", analyticsValue: "site_or_other" })
   const canPersonalize = !region || region.slug === "guincho-perto-de-mim"
   const city = selectedCity || region?.city || "ABC Paulista"
   const isCoast = coastAreas.includes(city)
-  const requestLink = (service = "guincho") => waLink(`Olá, preciso consultar ${service} ${isCoast ? "para" : "em"} ${city}.${isCoast ? " Rota entre o ABC e o litoral, sob consulta de disponibilidade." : ""}\n\n${qualificationFields}`)
+  const requestLink = (service = "guincho") => waLink(`Olá, preciso consultar ${service} ${isCoast ? "para" : "em"} ${city}.${isCoast ? " Rota entre o ABC e o litoral, sob consulta de disponibilidade." : ""}\n\n${qualificationFields}`, attribution)
   const whatsapp = requestLink()
   const headline = canPersonalize
     ? isCoast ? `Guincho para ${city}` : `Atendimento de guincho 24h ${city === "ABC Paulista" ? "no ABC Paulista" : `em ${city}`}`
@@ -93,22 +96,43 @@ function App({ pathname = "/" }: { pathname?: string }) {
   const faqSchema = makeFaqSchema(pageFaqs)
 
   useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setAttribution(readTrafficAttribution()))
+    return () => window.cancelAnimationFrame(frame)
+  }, [])
+
+  useEffect(() => {
     const trackWhatsAppClick = (event: MouseEvent) => {
       if (!(event.target instanceof Element)) return
 
       const link = event.target.closest<HTMLAnchorElement>('a[href*="wa.me/5511943786869"]')
-      if (!link || typeof window.gtag !== "function") return
+      if (link && typeof window.gtag === "function") {
+        window.gtag("event", "whatsapp_click", {
+          origem: attribution.analyticsValue,
+          campaign_id: attribution.campaignId,
+        })
 
-      window.gtag("event", "conversion", {
-        send_to: GOOGLE_ADS_CONTACT_CONVERSION,
-        event_callback: () => undefined,
-        event_timeout: 2000,
-      })
+        window.gtag("event", "conversion", {
+          send_to: GOOGLE_ADS_CONTACT_CONVERSION,
+          origem: attribution.analyticsValue,
+          campaign_id: attribution.campaignId,
+          event_callback: () => undefined,
+          event_timeout: 2000,
+        })
+        return
+      }
+
+      const phoneLink = event.target.closest<HTMLAnchorElement>('a[href^="tel:+5511943786869"]')
+      if (phoneLink && typeof window.gtag === "function") {
+        window.gtag("event", "phone_click", {
+          origem: attribution.analyticsValue,
+          campaign_id: attribution.campaignId,
+        })
+      }
     }
 
     document.addEventListener("click", trackWhatsAppClick, { capture: true })
     return () => document.removeEventListener("click", trackWhatsAppClick, { capture: true })
-  }, [])
+  }, [attribution])
 
   return <>
     <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
@@ -150,7 +174,7 @@ function App({ pathname = "/" }: { pathname?: string }) {
 
       <Testimonials />
 
-      <section id="areas-atendidas" className="section areas-section"><div className="shell"><div className="section-heading"><span className="section-kicker">Atendimento regional 24 horas</span><h2>Regiões atendidas</h2><p>Atendimento no ABC Paulista e rotas para a Baixada Santista sob consulta. Informe a origem e o destino para confirmar disponibilidade e orçamento.</p></div><nav className="region-links" aria-label="Páginas de regiões e rotas">{regions.map(item => <a key={item.slug} href={`${BASE_PATH}${item.slug}/`}>{item.title} →</a>)}</nav><div className="coverage-label"><span>Base operacional</span><strong>{ADDRESS_DISPLAY}</strong><small>ABC Paulista e rotas para o litoral</small></div><div className="local-grid">{cities.map(city=><article key={city}><MapPin size={22}/><h3>Guincho em {city}</h3><p>Atendimento 24h para carros, motos e veículos leves.</p><a href={regionHref(city)}>Ver atendimento em {city} →</a></article>)}</div><div className="coast-heading"><span>Rotas para o litoral</span><h2>Atendimento na Serra e Baixada Santista</h2><p>Consulte disponibilidade para remoções, transportes e deslocamentos entre o ABC e o litoral.</p></div><div className="coast-grid">{coastAreas.map(area=><article key={area}><Truck size={21}/><div><h3>Guincho para {area}</h3><p>Atendimento sob consulta de rota e disponibilidade.</p><small>Consulte o tempo estimado de deslocamento ao solicitar.</small></div><a href={regionHref(area)}>Ver rota para {area} →</a></article>)}</div><div className="extra-areas"><strong>Outras regiões sob consulta:</strong><div className="extra-area-links">{extraCities.map(city=><a key={city} href={waLink(`Olá, preciso consultar um guincho para ${city}.\n\n${qualificationFields}`)} target="_blank" rel="noopener noreferrer">{city} <span>→</span></a>)}<a href={waLink(`Olá, preciso consultar um guincho para outra região.\n\n${qualificationFields}`)} target="_blank" rel="noopener noreferrer">Outra região <span>→</span></a></div></div></div></section>
+      <section id="areas-atendidas" className="section areas-section"><div className="shell"><div className="section-heading"><span className="section-kicker">Atendimento regional 24 horas</span><h2>Regiões atendidas</h2><p>Atendimento no ABC Paulista e rotas para a Baixada Santista sob consulta. Informe a origem e o destino para confirmar disponibilidade e orçamento.</p></div><nav className="region-links" aria-label="Páginas de regiões e rotas">{regions.map(item => <a key={item.slug} href={`${BASE_PATH}${item.slug}/`}>{item.title} →</a>)}</nav><div className="coverage-label"><span>Base operacional</span><strong>{ADDRESS_DISPLAY}</strong><small>ABC Paulista e rotas para o litoral</small></div><div className="local-grid">{cities.map(city=><article key={city}><MapPin size={22}/><h3>Guincho em {city}</h3><p>Atendimento 24h para carros, motos e veículos leves.</p><a href={regionHref(city)}>Ver atendimento em {city} →</a></article>)}</div><div className="coast-heading"><span>Rotas para o litoral</span><h2>Atendimento na Serra e Baixada Santista</h2><p>Consulte disponibilidade para remoções, transportes e deslocamentos entre o ABC e o litoral.</p></div><div className="coast-grid">{coastAreas.map(area=><article key={area}><Truck size={21}/><div><h3>Guincho para {area}</h3><p>Atendimento sob consulta de rota e disponibilidade.</p><small>Consulte o tempo estimado de deslocamento ao solicitar.</small></div><a href={regionHref(area)}>Ver rota para {area} →</a></article>)}</div><div className="extra-areas"><strong>Outras regiões sob consulta:</strong><div className="extra-area-links">{extraCities.map(city=><a key={city} href={waLink(`Olá, preciso consultar um guincho para ${city}.\n\n${qualificationFields}`, attribution)} target="_blank" rel="noopener noreferrer">{city} <span>→</span></a>)}<a href={waLink(`Olá, preciso consultar um guincho para outra região.\n\n${qualificationFields}`, attribution)} target="_blank" rel="noopener noreferrer">Outra região <span>→</span></a></div></div></div></section>
 
       <section id="sobre" className="section about-section"><div className="shell about-grid"><div className="about-panel"><span>NETIV</span><strong>Transportes</strong><small>Guincho 24 horas</small></div><div className="section-heading left"><span className="section-kicker">Sobre a Netiv</span><h2>Transporte responsável e comunicação clara</h2><p>Com base em São Bernardo do Campo, atendemos situações de urgência e transportes programados em toda a região. Você fala diretamente com nossa equipe desde o orçamento até o destino.</p><ul className="check-list"><li>Orçamento antes do atendimento</li><li>Cuidado no embarque e transporte</li><li>Atendimento 24 horas, todos os dias</li></ul><a className="button button-dark" href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Netiv</a></div></div></section>
 
