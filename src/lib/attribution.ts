@@ -41,7 +41,9 @@ const attributionFromUrl = (url: URL): TrafficAttribution | undefined => {
     return { reference: "ADS-PMAX", analyticsValue: "google_ads_pmax", campaignId }
   }
 
-  const isSocialSource = /^(ig|instagram|fb|facebook|meta)$/.test(source)
+  const isInstagram = /^(ig|instagram)$/.test(source) || origin.includes("instagram")
+  const isFacebook = /^(fb|facebook)$/.test(source) || origin.includes("facebook") || url.searchParams.has("fbclid")
+  const isSocialSource = isInstagram || isFacebook || source === "meta"
     || origin.includes("instagram")
     || origin.includes("facebook")
     || origin.includes("meta")
@@ -51,10 +53,14 @@ const attributionFromUrl = (url: URL): TrafficAttribution | undefined => {
     || campaign.includes("ads")
 
   if (isSocialSource && isPaidSocial) {
+    if (isInstagram) return { reference: "ADS-INSTAGRAM", analyticsValue: "instagram_ads", campaignId }
+    if (isFacebook) return { reference: "ADS-FACEBOOK", analyticsValue: "facebook_ads", campaignId }
     return { reference: "ADS-REDES-SOCIAIS", analyticsValue: "paid_social", campaignId }
   }
 
   if (isSocialSource) {
+    if (isInstagram) return { reference: "INSTAGRAM", analyticsValue: "instagram_social", campaignId }
+    if (isFacebook) return { reference: "FACEBOOK", analyticsValue: "facebook_social", campaignId }
     return { reference: "REDES-SOCIAIS", analyticsValue: "social_media", campaignId }
   }
 
@@ -100,11 +106,27 @@ export const readTrafficAttribution = (): TrafficAttribution => {
 
 export const whatsAppSourceMessage = (attribution: TrafficAttribution): string => {
   if (attribution.analyticsValue.startsWith("google_ads")) {
-    return "Olá, vi seu anúncio da Netiv no Google e gostaria de solicitar um orçamento de guincho."
+    return "Olá, vi seu anúncio de guincho da Netiv no Google e gostaria de mais informações."
+  }
+
+  if (attribution.analyticsValue === "instagram_ads") {
+    return "Olá, vi seu anúncio de guincho da Netiv no Instagram e gostaria de mais informações."
+  }
+
+  if (attribution.analyticsValue === "facebook_ads") {
+    return "Olá, vi seu anúncio de guincho da Netiv no Facebook e gostaria de mais informações."
   }
 
   if (attribution.analyticsValue === "paid_social") {
-    return "Olá, vi seu anúncio da Netiv nas redes sociais e gostaria de solicitar um orçamento de guincho."
+    return "Olá, vi seu anúncio de guincho da Netiv nas redes sociais e gostaria de mais informações."
+  }
+
+  if (attribution.analyticsValue === "instagram_social") {
+    return "Olá, encontrei a Netiv no Instagram e gostaria de mais informações sobre o serviço de guincho."
+  }
+
+  if (attribution.analyticsValue === "facebook_social") {
+    return "Olá, encontrei a Netiv no Facebook e gostaria de mais informações sobre o serviço de guincho."
   }
 
   if (attribution.analyticsValue === "social_media") {
@@ -112,8 +134,8 @@ export const whatsAppSourceMessage = (attribution: TrafficAttribution): string =
   }
 
   if (attribution.analyticsValue === "google_organic") {
-    return "Olá, encontrei a Netiv na pesquisa do Google e gostaria de solicitar um orçamento de guincho."
+    return "Olá, encontrei a Netiv na pesquisa do Google e gostaria de mais informações sobre o serviço de guincho."
   }
 
-  return "Olá, acessei o site da Netiv e gostaria de solicitar um orçamento de guincho."
+  return "Olá, acessei o site da Netiv e gostaria de mais informações sobre o serviço de guincho."
 }
