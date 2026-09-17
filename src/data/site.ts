@@ -6,7 +6,7 @@ export const WHATSAPP_NUMBER = "5511943786869"
 
 export const WHATSAPP_ORCAMENTO =
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    "Olá, acessei o site da Netiv e gostaria de solicitar um orçamento de guincho.\n\nVeículo (marca/modelo): ____\nLocal de retirada: ____\nDestino: ____\nCondição do veículo (funciona, rodas travadas, garagem/subsolo): ____\nAtendimento (agora ou agendar): ____\n\n[Preencha os dados acima e envie esta mensagem para iniciar o orçamento.]"
+    "Olá, vi seu site de guincho e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   )}`
 
 export const BASE_CIDADE =

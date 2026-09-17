@@ -106,36 +106,36 @@ export const readTrafficAttribution = (): TrafficAttribution => {
 
 export const whatsAppSourceMessage = (attribution: TrafficAttribution): string => {
   if (attribution.analyticsValue.startsWith("google_ads")) {
-    return "Olá, vi seu anúncio de guincho da Netiv no Google e gostaria de mais informações."
+    return "Olá, vi seu anúncio de guincho no Google Ads e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "instagram_ads") {
-    return "Olá, vi seu anúncio de guincho da Netiv no Instagram e gostaria de mais informações."
+    return "Olá, vi seu anúncio de guincho no Instagram e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "facebook_ads") {
-    return "Olá, vi seu anúncio de guincho da Netiv no Facebook e gostaria de mais informações."
+    return "Olá, vi seu anúncio de guincho no Facebook e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "paid_social") {
-    return "Olá, vi seu anúncio de guincho da Netiv nas redes sociais e gostaria de mais informações."
+    return "Olá, vi seu anúncio de guincho nas redes sociais e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "instagram_social") {
-    return "Olá, encontrei a Netiv no Instagram e gostaria de mais informações sobre o serviço de guincho."
+    return "Olá, vi seu serviço de guincho no Instagram e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "facebook_social") {
-    return "Olá, encontrei a Netiv no Facebook e gostaria de mais informações sobre o serviço de guincho."
+    return "Olá, vi seu serviço de guincho no Facebook e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "social_media") {
-    return "Olá, encontrei a Netiv nas redes sociais e gostaria de solicitar um orçamento de guincho."
+    return "Olá, vi seu serviço de guincho nas redes sociais e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
   if (attribution.analyticsValue === "google_organic") {
-    return "Olá, encontrei a Netiv na pesquisa do Google e gostaria de mais informações sobre o serviço de guincho."
+    return "Olá, vi seu anúncio de guincho no Google e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
   }
 
-  return "Olá, acessei o site da Netiv e gostaria de mais informações sobre o serviço de guincho."
+  return "Olá, vi seu site de guincho e gostaria de mais informações.\n\n[Envie essa mensagem para iniciar o orçamento]"
 }
