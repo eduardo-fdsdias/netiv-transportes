@@ -10,6 +10,7 @@ const template = await readFile(resolve(distDir, 'index.html'), 'utf8')
 const { render } = await import(pathToFileURL(resolve(serverDir, 'entry-server.js')).href)
 const pages = [
   { path: '/', output: resolve(distDir, 'index.html') },
+  { path: '/guincho-agora', output: resolve(distDir, 'guincho-agora', 'index.html'), title: 'Guincho 24h em São Bernardo e ABC | Netiv Transportes', description: 'Guincho 24 horas para carros, motos e utilitários leves em São Bernardo do Campo e ABC Paulista. Consulte a Netiv Transportes pelo WhatsApp.' },
   { path: '/politica-de-privacidade', output: resolve(distDir, 'politica-de-privacidade', 'index.html'), title: 'Política de Privacidade | Netiv Transportes', description: 'Política de Privacidade da Netiv Transportes e informações sobre o tratamento de dados no site.' },
 ]
 pages.push(...regions.map(region => ({ path: `/${region.slug}`, output: resolve(distDir, region.slug, 'index.html'), title: `${region.title} | Netiv Transportes`, description: region.description })))
