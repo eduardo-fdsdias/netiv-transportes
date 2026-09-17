@@ -84,6 +84,10 @@
 .tow-trust-grid small { margin-top: 3px; color: #c8def5; font-size: .72rem; }
 
 .tow-section { padding-block: 100px; }
+.tow-regional-detail { padding-block: 78px; border-bottom: 1px solid #e6edf1; }
+.tow-regional-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+.tow-regional-grid p { margin: 0 0 18px; color: var(--tow-muted); line-height: 1.76; }
+.tow-regional-grid .tow-text-link { color: var(--tow-blue) !important; }
 .tow-section-heading { max-width: 720px; margin: 0 auto 46px; text-align: center; }
 .tow-kicker { color: var(--tow-blue); }
 .tow-section h2,.tow-final-cta h2 { margin: 0; color: var(--tow-navy); font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.08; letter-spacing: -.04em; }
@@ -111,7 +115,13 @@
 .tow-area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .tow-area-grid ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .tow-area-grid li { display: flex; align-items: center; gap: 9px; min-height: 54px; padding: 12px 15px; color: var(--tow-navy); background: #fff; border: 1px solid #e1e9ee; border-radius: 8px; font-size: .85rem; font-weight: 800; }
+.tow-area-grid li a { width: 100%; display: flex; align-items: center; gap: 9px; }
+.tow-area-grid li:hover { border-color: #aac8e7; box-shadow: 0 8px 20px rgba(6,28,44,.06); }
 .tow-area-grid li svg { width: 18px; height: 18px; color: var(--tow-blue); flex-shrink: 0; }
+.tow-route-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; color: var(--tow-muted); font-size: .74rem; }
+.tow-route-links strong { width: 100%; color: var(--tow-navy); text-transform: uppercase; letter-spacing: .06em; }
+.tow-route-links a { padding: 7px 10px; background: #e7f0f8; border-radius: 999px; font-weight: 750; }
+.tow-route-links a:hover { color: var(--tow-blue); }
 
 .tow-confidence { padding-block: 70px; }
 .tow-confidence-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 70px; }
@@ -160,7 +170,7 @@
   .tow-proof-card { left: 1%; }
   .tow-trust-grid { grid-template-columns: 1fr 1fr; }
   .tow-trust-grid > div { justify-content: flex-start; border-bottom: 1px solid rgba(255,255,255,.17); }
-  .tow-real-grid,.tow-area-grid,.tow-confidence-grid,.tow-faq-grid { grid-template-columns: 1fr; gap: 45px; }
+  .tow-real-grid,.tow-area-grid,.tow-confidence-grid,.tow-faq-grid,.tow-regional-grid { grid-template-columns: 1fr; gap: 45px; }
   .tow-real-copy { max-width: 680px; }
   .tow-footer-grid { flex-wrap: wrap; }
 }

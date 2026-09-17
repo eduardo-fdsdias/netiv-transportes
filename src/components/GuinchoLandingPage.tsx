@@ -19,6 +19,7 @@ import '../GuinchoLandingPage.css'
 import atendimentoCarro from '../assets/atendimento-carro.webp'
 import atendimentoNoturno from '../assets/atendimento-noturno.webp'
 import atendimentoUtilitario from '../assets/atendimento-utilitario.webp'
+import regions from '../data/regions.json'
 import {
   BASE_PATH,
   CNPJ,
@@ -64,9 +65,31 @@ const faqItems = [
   },
 ]
 
-export function GuinchoLandingPage() {
+type GuinchoLandingPageProps = {
+  pathname?: string
+}
+
+const localRegionPages = regions.filter((item) => item.slug.startsWith('guincho-24h-') && item.city !== 'ABC Paulista')
+const coastRegionPages = regions.filter((item) => item.slug.startsWith('guincho-para-'))
+
+export function GuinchoLandingPage({ pathname = '/guincho-agora' }: GuinchoLandingPageProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [attribution, setAttribution] = useState<TrafficAttribution>(DEFAULT_ATTRIBUTION)
+  const normalizedPath = pathname.replace(/\/$/, '')
+  const region = regions.find((item) => `/${item.slug}` === normalizedPath)
+  const isCoastRoute = Boolean(region?.slug.startsWith('guincho-para-'))
+  const isAbcPage = region?.slug === 'guincho-24h-abc-paulista' || region?.slug === 'guincho-perto-de-mim'
+  const heroTitle = region
+    ? isCoastRoute
+      ? `Guincho para ${region.city} e região`
+      : isAbcPage
+        ? 'Guincho no ABC Paulista e região'
+        : `Guincho em ${region.city} e região`
+    : 'Guincho 24h em São Bernardo e região'
+  const heroLead = region?.description || 'Atendimento para carros, motos e utilitários leves no ABC Paulista. Consulte agora a disponibilidade e o valor do seu trajeto.'
+  const pageFaqItems = region
+    ? [{ question: region.question, answer: region.answer }, ...faqItems]
+    : faqItems
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setAttribution(readTrafficAttribution()))
@@ -100,7 +123,7 @@ export function GuinchoLandingPage() {
       {
         '@type': 'AutomotiveBusiness',
         name: 'Netiv Transportes',
-        url: 'https://netivtransportes.com.br/guincho-agora/',
+        url: `https://netivtransportes.com.br${normalizedPath || '/'}`,
         telephone: '+55 11 94378-6869',
         areaServed: [
           'São Bernardo do Campo',
@@ -116,7 +139,7 @@ export function GuinchoLandingPage() {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: faqItems.map((item) => ({
+        mainEntity: pageFaqItems.map((item) => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: { '@type': 'Answer', text: item.answer },
@@ -168,9 +191,9 @@ export function GuinchoLandingPage() {
         <section className="tow-hero">
           <div className="tow-shell tow-hero-grid">
             <div className="tow-hero-copy">
-              <p className="tow-eyebrow"><span /> Guincho 24h em São Bernardo e região</p>
-              <h1>Precisou de <em>guincho?</em><br />Fale direto com a Netiv.</h1>
-              <p className="tow-hero-lead">Atendimento para carros, motos e utilitários leves no ABC Paulista. Consulte agora a disponibilidade e o valor do seu trajeto.</p>
+              <p className="tow-eyebrow"><span /> Atendimento 24 horas • Netiv Transportes</p>
+              <h1><em>{heroTitle}</em><br />Fale direto com a Netiv.</h1>
+              <p className="tow-hero-lead">{heroLead}</p>
 
               <ul className="tow-check-list" aria-label="Diferenciais">
                 <li><Check aria-hidden="true" /> Atendimento 24 horas</li>
@@ -209,6 +232,21 @@ export function GuinchoLandingPage() {
             <div><ShieldCheck aria-hidden="true" /><span><strong>Empresa ativa</strong><small>CNPJ verificável</small></span></div>
           </div>
         </section>
+
+        {region && (
+          <section className="tow-section tow-regional-detail">
+            <div className="tow-shell tow-regional-grid">
+              <div>
+                <p className="tow-kicker">Atendimento regional</p>
+                <h2>{region.heading}</h2>
+              </div>
+              <div>
+                {region.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                <a className="tow-text-link" href={whatsappHref} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', 'regional_detail')}>Consultar atendimento em {region.city} <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </section>
+        )}
 
         <section id="servicos" className="tow-section tow-services">
           <div className="tow-shell">
@@ -251,9 +289,16 @@ export function GuinchoLandingPage() {
               <h2>São Bernardo do Campo e ABC Paulista</h2>
               <p>Atendimento local em raio aproximado de 18 km, conforme disponibilidade. Para litoral e outras regiões, consulte o deslocamento.</p>
             </div>
-            <ul>
-              {['São Bernardo do Campo', 'Santo André', 'São Caetano do Sul', 'Diadema', 'Mauá', 'Ribeirão Pires', 'Rio Grande da Serra', 'Outras regiões sob consulta'].map((city) => <li key={city}><MapPin aria-hidden="true" /> {city}</li>)}
-            </ul>
+            <div>
+              <ul>
+                {localRegionPages.map((item) => <li key={item.slug}><a href={`${BASE_PATH}${item.slug}/`}><MapPin aria-hidden="true" /> {item.city}</a></li>)}
+                <li><a href={whatsappHref} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', 'other_region')}><MapPin aria-hidden="true" /> Outras regiões sob consulta</a></li>
+              </ul>
+              <div className="tow-route-links" aria-label="Rotas para o litoral">
+                <strong>Rotas para o litoral:</strong>
+                {coastRegionPages.map((item) => <a key={item.slug} href={`${BASE_PATH}${item.slug}/`}>{item.city}</a>)}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -279,7 +324,7 @@ export function GuinchoLandingPage() {
               <p>Tenha em mãos o modelo do veículo, local de retirada, destino e condição atual. Isso agiliza a consulta.</p>
             </div>
             <div className="tow-accordions">
-              {faqItems.map((item) => (
+              {pageFaqItems.map((item) => (
                 <details key={item.question}>
                   <summary>{item.question}<span aria-hidden="true">+</span></summary>
                   <p>{item.answer}</p>
@@ -309,7 +354,7 @@ export function GuinchoLandingPage() {
       <footer className="tow-footer">
         <div className="tow-shell tow-footer-grid">
           <div className="tow-brand tow-brand-footer"><span className="tow-brand-mark"><Truck aria-hidden="true" /></span><span><strong>NETIV</strong><small>TRANSPORTES</small></span></div>
-          <p>Guincho 24 horas em São Bernardo do Campo e região.</p>
+          <p>{region ? heroTitle : 'Guincho 24 horas em São Bernardo do Campo e região.'}</p>
           <div><a href={`${BASE_PATH}politica-de-privacidade/`}>Política de Privacidade</a><span>•</span><span>CNPJ {CNPJ}</span></div>
         </div>
       </footer>
