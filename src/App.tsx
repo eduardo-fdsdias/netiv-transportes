@@ -9,7 +9,7 @@ import guinchoFrente from "./assets/guincho-frente-placa-borrada.webp"
 import guinchoLateral from "./assets/guincho-lateral-placa-borrada.webp"
 import { SiteHeader } from "./components/SiteHeader"
 import { Testimonials } from "./components/Testimonials"
-import { readTrafficAttribution, type TrafficAttribution } from "./lib/attribution"
+import { readTrafficAttribution, whatsAppSourceMessage, type TrafficAttribution } from "./lib/attribution"
 import {
   ADDRESS_DISPLAY, CNPJ, INSTAGRAM_HANDLE, INSTAGRAM_URL, MAP_EMBED_URL,
   BASE_PATH, PHONE_DISPLAY, PHONE_TEL, SITE_URL,
@@ -71,6 +71,8 @@ const qualificationFields = [
   "Destino: ____",
   "Condição do veículo (funciona, rodas travadas, garagem/subsolo): ____",
   "Atendimento (agora ou agendar): ____",
+  "",
+  "[Preencha os dados acima e envie esta mensagem para iniciar o orçamento.]",
 ].join("\n")
 const GOOGLE_ADS_CONTACT_CONVERSION = "AW-18419198979/XYYjCJWx5PAcEIPY-s5E"
 
@@ -87,7 +89,7 @@ function App({ pathname = "/" }: { pathname?: string }) {
   const canPersonalize = !region || region.slug === "guincho-perto-de-mim"
   const city = selectedCity || region?.city || "ABC Paulista"
   const isCoast = coastAreas.includes(city)
-  const requestLink = (service = "guincho") => waLink(`Olá, preciso consultar ${service} ${isCoast ? "para" : "em"} ${city}.${isCoast ? " Rota entre o ABC e o litoral, sob consulta de disponibilidade." : ""}\n\n${qualificationFields}`, attribution)
+  const requestLink = (service = "guincho") => waLink(`${whatsAppSourceMessage(attribution)}\n\nPreciso consultar ${service} ${isCoast ? "para" : "em"} ${city}.${isCoast ? " Rota entre o ABC e o litoral, sob consulta de disponibilidade." : ""}\n\n${qualificationFields}`, attribution)
   const whatsapp = requestLink()
   const headline = canPersonalize
     ? isCoast ? `Guincho para ${city}` : `Atendimento de guincho 24h ${city === "ABC Paulista" ? "no ABC Paulista" : `em ${city}`}`
