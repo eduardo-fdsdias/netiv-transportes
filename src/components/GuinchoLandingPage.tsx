@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   BadgeCheck,
-  AtSign,
   Banknote,
   CarFront,
   Check,
@@ -44,6 +43,16 @@ declare global {
 const DEFAULT_ATTRIBUTION: TrafficAttribution = {
   reference: 'SITE',
   analyticsValue: 'site_or_other',
+}
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="18" height="18" x="3" y="3" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
 }
 
 const faqItems = [
@@ -158,7 +167,7 @@ export function GuinchoLandingPage({ pathname = '/guincho-agora' }: GuinchoLandi
           <span><Clock3 aria-hidden="true" /> Atendimento 24 horas • todos os dias</span>
           <div>
             <a href={PHONE_TEL} onClick={() => trackContact('phone', 'topbar')}><Phone aria-hidden="true" /> {PHONE_DISPLAY}</a>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"><AtSign aria-hidden="true" /> {INSTAGRAM_HANDLE}</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"><InstagramIcon /> {INSTAGRAM_HANDLE}</a>
           </div>
         </div>
       </div>
