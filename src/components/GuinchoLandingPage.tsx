@@ -133,7 +133,7 @@ export function GuinchoLandingPage({ pathname = '/guincho-agora' }: GuinchoLandi
         '@type': 'AutomotiveBusiness',
         name: 'Netiv Transportes',
         url: `https://netivtransportes.com.br${normalizedPath || '/'}`,
-        telephone: '+55 11 94378-6869',
+        telephone: '+55 11 95027-7401',
         areaServed: [
           'São Bernardo do Campo',
           'Santo André',
