@@ -12,7 +12,7 @@ import { Testimonials } from "./components/Testimonials"
 import { readTrafficAttribution, whatsAppSourceMessage, type TrafficAttribution } from "./lib/attribution"
 import {
   ADDRESS_DISPLAY, CNPJ, INSTAGRAM_HANDLE, INSTAGRAM_URL, MAP_EMBED_URL,
-  BASE_PATH, PHONE_DISPLAY, PHONE_TEL, SITE_URL,
+  BASE_PATH, PHONE_DISPLAY, PHONE_TEL, SITE_URL, WHATSAPP_NUMBER,
 } from "./data/site"
 
 const services = [
@@ -51,7 +51,7 @@ const gallery = [
 const localBusinessSchema = {
   "@context": "https://schema.org", "@type": "AutomotiveBusiness", name: "Netiv Transportes",
   description: "Guincho 24 horas para carros, motos, utilitários e veículos leves em São Bernardo do Campo e ABC Paulista.",
-  telephone: "+5511943786869", url: `${SITE_URL}/`,
+  telephone: `+${WHATSAPP_NUMBER}`, url: `${SITE_URL}/`,
   address: { "@type": "PostalAddress", addressLocality: "São Bernardo do Campo", addressRegion: "SP", addressCountry: "BR" },
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" }],
   areaServed: [...cities, ...coastAreas, ...extraCities].map(name => ({ "@type": "Place", name })),
@@ -63,8 +63,7 @@ function WhatsAppIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1C18.7 23.7 24 18.4 24 11.9c0-3.2-1.2-6.2-3.5-8.4ZM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.9 1 1-3.8-.2-.4a9.8 9.8 0 1 1 8.5 4.8Zm5.4-7.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.3 3.5 1.5 3.7.2.3 2.6 4 6.3 5.6 2.3 1 3.2 1.1 4.4.9.7-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
 }
 
-const waLink = (message: string) =>
-  `https://wa.me/5511943786869?text=${encodeURIComponent(message)}`
+const waLink = (message: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 const GOOGLE_ADS_CONTACT_CONVERSION = "AW-18419198979/XYYjCJWx5PAcEIPY-s5E"
 
 declare global {
@@ -97,7 +96,7 @@ function App({ pathname = "/" }: { pathname?: string }) {
     const trackWhatsAppClick = (event: MouseEvent) => {
       if (!(event.target instanceof Element)) return
 
-      const link = event.target.closest<HTMLAnchorElement>('a[href*="wa.me/5511943786869"]')
+      const link = event.target.closest<HTMLAnchorElement>(`a[href*="wa.me/${WHATSAPP_NUMBER}"]`)
       if (link && typeof window.gtag === "function") {
         window.gtag("event", "whatsapp_click", {
           origem: attribution.analyticsValue,
@@ -114,7 +113,7 @@ function App({ pathname = "/" }: { pathname?: string }) {
         return
       }
 
-      const phoneLink = event.target.closest<HTMLAnchorElement>('a[href^="tel:+5511943786869"]')
+      const phoneLink = event.target.closest<HTMLAnchorElement>(`a[href^="${PHONE_TEL}"]`)
       if (phoneLink && typeof window.gtag === "function") {
         window.gtag("event", "phone_click", {
           origem: attribution.analyticsValue,

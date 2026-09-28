@@ -1,8 +1,8 @@
-export const PHONE_DISPLAY = "(11) 94378-6869"
+export const PHONE_DISPLAY = "+55 11 95027-7401"
 
-export const PHONE_TEL = "tel:+5511943786869"
+export const PHONE_TEL = "tel:+5511950277401"
 
-export const WHATSAPP_NUMBER = "5511943786869"
+export const WHATSAPP_NUMBER = "5511950277401"
 
 export const WHATSAPP_ORCAMENTO =
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
